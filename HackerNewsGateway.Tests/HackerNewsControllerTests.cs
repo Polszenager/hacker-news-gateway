@@ -1,8 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using FluentAssertions;
-using HackerNewsGateway.Controllers;
 using HackerNewsGateway.Dtos;
 using HackerNewsGateway.Services;
 using Microsoft.AspNetCore.Mvc.Testing;

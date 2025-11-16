@@ -1,15 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using HackerNewsGateway.Dtos;
 using HackerNewsGateway.Services;
+
 
 namespace HackerNewsGateway.Tests
 {
     public class HackerNewsMockService : IHackerNewsService
     {
-        public Task<IEnumerable<HackerNewsStoryDto>> GetBestStoriesAsync(int n)
+        IAsyncEnumerable<HackerNewsStoryDto> IHackerNewsService.GetBestStoriesAsync(int n)
         {
-            return Task.FromResult<IEnumerable<HackerNewsStoryDto>>(new List<HackerNewsStoryDto>
+            var stories = new List<HackerNewsStoryDto>
             {
                 new HackerNewsStoryDto
                 {
@@ -20,7 +19,10 @@ namespace HackerNewsGateway.Tests
                     Score = 1716,
                     CommentCount = 572
                 }
-            });
+            };
+
+            // Convert the list to an async enumerable
+            return stories.ToAsyncEnumerable();
         }
     }
 }

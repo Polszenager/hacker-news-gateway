@@ -13,24 +13,31 @@ namespace HackerNewsGateway.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<HackerNewsStoryDto>> GetBestStoriesAsync(int n)
+        public async IAsyncEnumerable<HackerNewsStoryDto> GetBestStoriesAsync(int n)
         {
+            if (n == 0)
+            {
+                yield break;
+            }
+
             var bestStoriesResponse = await _httpClient.GetStringAsync($"{BaseUrl}beststories.json");
             var storyIds = JsonConvert.DeserializeObject<List<int>>(bestStoriesResponse) ?? new List<int>();
 
-            var stories = new List<HackerNewsStoryDto>();
+            if (storyIds.Count == 0)
+            {
+                yield break;
+            }
+
             foreach (var storyId in storyIds.Take(n))
             {
                 var itemResponse = await _httpClient.GetStringAsync($"{BaseUrl}item/{storyId}.json");
                 var item = JsonConvert.DeserializeObject<HackerNewsItem>(itemResponse);
-                
+
                 if (item != null && item.Type == "story")
                 {
-                    stories.Add(MapToDto(item));
+                    yield return MapToDto(item);
                 }
             }
-
-            return stories.OrderByDescending(s => s.Score).Take(n);
         }
 
         private static HackerNewsStoryDto MapToDto(HackerNewsItem item)
@@ -47,4 +54,3 @@ namespace HackerNewsGateway.Services
         }
     }
 }
-

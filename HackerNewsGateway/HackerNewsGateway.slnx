@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="WebApplication1/Gateway.csproj" />
+  <Project Path="../HackerNewsGateway.Tests/HackerNewsGateway.Tests.csproj" />
 </Solution>

@@ -4,7 +4,6 @@ namespace HackerNewsGateway.Services
 {
     public interface IHackerNewsService
     {
-        Task<IEnumerable<HackerNewsStoryDto>> GetBestStoriesAsync(int n);
+        IAsyncEnumerable<HackerNewsStoryDto> GetBestStoriesAsync(int n);
     }
 }
-

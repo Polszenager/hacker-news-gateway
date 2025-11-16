@@ -17,7 +17,7 @@ namespace HackerNewsGateway.Controllers
         [HttpGet("best/{n}")]
         public async Task<IActionResult> GetBestStories([FromRoute] int n)
         {
-            var result = await _hackerNewsService.GetBestStoriesAsync(n);
+            var result = await _hackerNewsService.GetBestStoriesAsync(n).ToListAsync();
             return Ok(result);
         }
     }
