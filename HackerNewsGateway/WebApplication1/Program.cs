@@ -45,14 +45,11 @@ builder.Services.AddHttpClient("HackerNewsClient", client =>
 .AddPolicyHandlerFromRegistry("HackerNewsRetryPolicy")
 .AddPolicyHandlerFromRegistry("HackerNewsCircuitBreakerPolicy");
 
-
-// Register HackerNewsService via factory so we can pass the named HttpClient and the cache implementation directly into its constructor.
 builder.Services.AddScoped<IHackerNewsService>(sp =>
 {
     var factory = sp.GetRequiredService<IHttpClientFactory>();
     var client = factory.CreateClient("HackerNewsClient");
     var cache = sp.GetRequiredService<ICache>();
-    // HackerNewsService has ctor (HttpClient, ICache)
     return new HackerNewsService(client, cache);
 });
 
