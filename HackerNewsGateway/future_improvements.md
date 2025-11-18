@@ -18,6 +18,7 @@ Mid-term / further improvements
 - Use Redis for a global cache and request coalescing (singleflight) across instances.
 - Introduce a background job queue for bulk requests and notify clients when a job completes.
 - Add advanced observability (OpenTelemetry) and downstream tracing.
+- Add authentication and authorization (either at API level or behind a proxy/load balancer)
 
 Notes on adopting `Hacker-News-Net` third party
 - Pros: reduces client maintenance effort, provides models and edge-case handling.
