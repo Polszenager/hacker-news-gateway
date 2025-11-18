@@ -2,6 +2,8 @@ using FluentAssertions;
 using HackerNewsGateway.Dtos;
 using HackerNewsGateway.Services;
 using HackerNewsGateway.Tests.TestUtilities;
+using HackerNewsGateway.Tests.MockServices;
+using System.Net.Http;
 
 namespace HackerNewsGateway.Tests
 {
@@ -14,9 +16,13 @@ namespace HackerNewsGateway.Tests
         public HackerNewsServiceTests()
         {
             _mockHttp = new MockHttpMessageHandler();
-            _httpClient = new HttpClient(_mockHttp);
-            _httpClient.BaseAddress = new Uri("https://hacker-news.firebaseio.com/v0/");
-            _service = new HackerNewsService(_httpClient);
+            _httpClient = new HttpClient(_mockHttp)
+            {
+                BaseAddress = new Uri("https://hacker-news.firebaseio.com/v0/")
+            };
+
+            var mockCache = new MockCacheService();
+            _service = new HackerNewsService(_httpClient, mockCache);
         }
 
         [Fact]

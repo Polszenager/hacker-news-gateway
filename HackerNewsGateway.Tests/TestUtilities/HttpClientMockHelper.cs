@@ -71,12 +71,6 @@ namespace HackerNewsGateway.Tests.TestUtilities
             _url = url;
         }
 
-        /// <summary>
-        /// Configures the response content and content type for the URL specified in When().
-        /// </summary>
-        /// <param name="contentType">The HTTP content type (e.g., "application/json")</param>
-        /// <param name="content">The response body content as a string</param>
-        /// <returns>The MockHttpMessageHandler instance for method chaining</returns>
         public MockHttpMessageHandler Respond(string contentType, string content)
         {
             _handler.AddResponse(_url, contentType, content);

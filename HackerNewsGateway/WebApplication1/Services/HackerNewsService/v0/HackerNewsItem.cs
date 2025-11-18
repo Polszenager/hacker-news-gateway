@@ -3,9 +3,13 @@ namespace HackerNewsGateway.Services
     /// <summary>
     /// Internal model for deserializing raw Hacker News API responses.
     /// Matches the API structure exactly (Url, By, Descendants, Unix timestamp, Type field).
+    /// NOTE: made public so tests and the cache adapter can construct/inspect instances.
     /// </summary>
-    internal class HackerNewsItem
+    public class HackerNewsItem
     {
+        // The Hacker News API returns "id" — keep this so the cache can map items to ids.
+        public int Id { get; set; }
+
         public string? Title { get; set; }
         public string? Url { get; set; }
         public string? By { get; set; }
